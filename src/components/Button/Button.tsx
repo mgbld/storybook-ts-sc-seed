@@ -5,10 +5,24 @@ import ButtonProps from './Button.types';
 
 export const Button: React.FC<
   ButtonProps & React.ComponentProps<typeof StyledButton>
-> = ({ primary = false, size = 'medium', label, ...props }) => {
+> = ({
+  children,
+  large = false,
+  primary = true,
+  round = false,
+  // icon,
+  // iconSize,
+  ...props
+}) => {
   return (
-    <StyledButton primary={primary} size={size} {...props}>
-      {label}
+    <StyledButton
+      type='button'
+      large={large}
+      primary={primary}
+      round={round}
+      // widthIcon={!!icon}
+      {...props}>
+      {children}
     </StyledButton>
   );
 };

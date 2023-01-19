@@ -1,33 +1,60 @@
 import styled, { css } from 'styled-components';
+import { breakpoints } from '../../styles/breakpoints';
 
 const StyledButton = styled.button<{
   primary: boolean;
-  size: string;
+  large: boolean;
+  withIcon: boolean;
+  round: boolean;
 }>(
-  ({ primary, size }) => css`
-    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 700;
+  ({
+    primary,
+    large,
+    withIcon,
+    round,
+    theme: { color, boxShadow, borderRadius },
+  }) => css`
+    outline: none;
     border: 0;
-    border-radius: 3rem;
+    font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    border-radius: ${round ? borderRadius.xl : borderRadius.xs};
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    display: inline-block;
-    line-height: 1;
+    padding: ${withIcon ? '0.7rem' : large ? '1.125rem' : '0.874rem'};
+    color: ${primary ? color.primaryText : color.buttonText};
 
-    ${primary && primary
-      ? `color: white; 
-        background-color: #1ea7fd; `
-      : `color #333; 
-          background-color: white; 
-          box-shadow:rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;`};
+    transition: box-shadow 150ms ease-in;
+    z-index: 1;
+    background-color: ${primary ? color.buttonPrimary : color.buttonSecondary};
 
-    ${size && size === 'small'
-      ? `font-size: 12px; 
-          padding: 10px 16px`
-      : size === 'medium'
-      ? `font-size: 14px; 
-          padding: 11px 20px`
-      : `font-size: 16px; 
-          padding: 12px 24px;`};
+    &:hover {
+      cursor: pointer;
+      background-color: ${primary
+        ? color.buttonPrimaryHover
+        : color.buttonSecondaryHover};
+    }
+
+    &:focus {
+      box-shadow: ${boxShadow.outerBorder};
+    }
+
+    &:disabled {
+      background-color: ${primary
+        ? color.buttonPrimary
+        : color.buttonSecondary};
+      opacity: 0.4;
+      cursor: default;
+    }
+
+    @media ${breakpoints.M} {
+      padding: ${withIcon
+        ? '1rem'
+        : large
+        ? '1.125rem 1.5rem'
+        : '0.875rem 1.5rem'};
+    }
   `
 );
 

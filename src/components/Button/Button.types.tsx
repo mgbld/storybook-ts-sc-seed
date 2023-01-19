@@ -2,8 +2,11 @@ import React from 'react';
 
 type ButtonProps = {
   primary?: boolean;
-  size?: 'small' | 'medium' | 'large';
-  label: string;
+  round?: boolean;
+  // icon?: string;
+  // iconSize?: number;
+  disabled?: boolean;
+  children: React.ReactNode | string;
   onClick?: () => void;
 };
 
